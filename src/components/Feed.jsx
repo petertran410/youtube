@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import { Videos, Sidebar } from "./";
 import { useParams } from "react-router-dom";
-import { fetchVideoAPI } from "../utils/fetchFromAPI";
+import { getVideoAPI } from "../utils/fetchFromAPI";
 
 const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("New");
@@ -42,7 +42,7 @@ const Feed = () => {
 
     // setVideos(lstItem);
 
-    fetchVideoAPI()
+    getVideoAPI()
       .then((result) => {
         setVideos(result);
       })
