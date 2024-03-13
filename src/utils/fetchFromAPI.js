@@ -20,7 +20,7 @@ export const fetchFromAPI = async (url) => {
 };
 
 export const getVideoAPI = async () => {
-  const { data } = await axios.get(`${BASE_URL}/video/get-video`);
+  const { data } = await axios.get(`${BASE_URL}/get-video`);
 
   return data;
 };
