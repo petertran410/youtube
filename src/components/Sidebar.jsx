@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Stack } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
-import { getVideoTypeAPI, getVideoTypeId } from "../utils/fetchFromAPI";
+import { getVideoTypeAPI } from "../utils/fetchFromAPI";
 
 // let categories = [
 //   { type_name: "New", icon: <i className="fa-solid fa-house"></i> },
@@ -24,7 +24,6 @@ import { getVideoTypeAPI, getVideoTypeId } from "../utils/fetchFromAPI";
 
 const Categories = ({ selectedCategory, setSelectedCategory }) => {
   let [categories, setCategories] = useState([]);
-  // let [videoType, setVideoType] = useState([]);
 
   const navigate = useNavigate();
 
@@ -38,16 +37,6 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
       });
   });
 
-  // useEffect(() => {
-  //   getVideoTypeId()
-  //     .then((result) => {
-  //       setVideoType(result);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // });
-
   return (
     <Stack
       direction="row"
@@ -60,7 +49,6 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
         <button
           className="category-btn"
           onClick={() => navigate("/videoType/" + category.type_id)}
-          // onClick={() => navigate(videoType)}
           style={{
             background: category.type_id === selectedCategory && "#FC1503",
             color: "white",

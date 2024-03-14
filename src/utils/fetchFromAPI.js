@@ -28,7 +28,11 @@ export const getVideoAPI = async () => {
 export const getVideoTypeAPI = async () => {
   const { data } = await axios.get(`${BASE_URL}/video/get-video-type`);
 
-  // const {dataVideoTypeId} = await axios.get(`${BASE_URL}/videoType/get-video-type-id`)
+  return data.content;
+};
+
+export const getVideoByTypeAPI = async (typeId) => {
+  const { data } = await axios.get(`${BASE_URL}/video/get-video-by-type/${typeId}`);
 
   return data.content;
 };
