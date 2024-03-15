@@ -4,24 +4,6 @@ import { Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getVideoTypeAPI } from "../utils/fetchFromAPI";
 
-// let categories = [
-//   { type_name: "New", icon: <i className="fa-solid fa-house"></i> },
-//   { type_name: "Coding", icon: <i className="fa-solid fa-code"></i> },
-//   { type_name: "Music", icon: <i className="fa-solid fa-music"></i> },
-//   { type_name: "Movie", icon: <i className="fa-solid fa-video"></i> },
-//   {
-//     type_name: "Gaming",
-//     icon: <i className="fa-sharp fa-solid fa-gamepad"></i>,
-//   },
-//   { type_name: "Sport", icon: <i className="fa-solid fa-baseball"></i> },
-//   {
-//     type_name: "Fashion",
-//     icon: <i className="fa-sharp fa-solid fa-shirt"></i>,
-//   },
-//   { type_name: "Gym", icon: <i className="fa-solid fa-dumbbell"></i> },
-//   { type_name: "Crypto", icon: <i className="fa-solid fa-diamond"></i> },
-// ];
-
 const Categories = ({ selectedCategory, setSelectedCategory }) => {
   let [categories, setCategories] = useState([]);
 

@@ -32,13 +32,22 @@ export const getVideoTypeAPI = async () => {
 };
 
 export const getVideoByTypeAPI = async (typeId) => {
-  const { data } = await axios.get(`${BASE_URL}/video/get-video-by-type/${typeId}`);
+  const { data } = await axios.get(
+    `${BASE_URL}/video/get-video-by-type/${typeId}`
+  );
 
   return data.content;
 };
 
 export const getVideoTypeId = async () => {
   const { data } = await axios.get(`${BASE_URL}/videoType/get-video-type-id`);
+
+  return data.content;
+};
+
+export const getVideoPageAPI = async (page = 1) => {
+  // trả về data, totalPage
+  const { data } = await axios.get(`${BASE_URL}/video/get-video-page/${page}`);
 
   return data.content;
 };

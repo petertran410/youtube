@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { Videos, Sidebar } from "./";
-import { useParams } from "react-router-dom";
-import { getVideoAPI, getVideoByTypeAPI } from "../utils/fetchFromAPI.js";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  getVideoAPI,
+  getVideoByTypeAPI,
+  getVideoPageAPI,
+} from "../utils/fetchFromAPI.js";
 
 const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("New");
   const [videos, setVideos] = useState(null);
+  const [totalPage, setTotalPage] = useState(0);
 
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (params.id) {
@@ -28,6 +34,20 @@ const Feed = () => {
         .catch((err) => {});
     }
   }, [params.id]);
+
+  useEffect(() => {
+    getVideoPageAPI(params.page)
+      .then((result) => {
+        setVideos(result.data);
+        setTotalPage(result.totalPage);
+      })
+      .catch((err) => {});
+  }, [params.page]);
+
+  let lstPage = [];
+  for (let i = 1; i <= totalPage; i++) {
+    lstPage.push(i);
+  }
 
   return (
     <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
@@ -60,6 +80,18 @@ const Feed = () => {
         </Typography>
 
         <Videos videos={videos} />
+
+        {lstPage.map((page) => {
+          return (
+            <button
+              className="btn btn-sm btn-primary mx-2"
+              onClick={() => {
+                navigate(`/${page}`);
+              }}>
+              {page}
+            </button>
+          );
+        })}
       </Box>
     </Stack>
   );
