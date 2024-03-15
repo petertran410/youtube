@@ -5,60 +5,74 @@ import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { Videos, Loader } from "./";
+import { getVideoAPI, getVideoId } from "../utils/fetchFromAPI.js";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
-  const { id } = useParams();
+  // const { id } = useParams();
+  const params = useParams();
 
   useEffect(() => {
-    let item = {
-      video_id: 1,
-      video_name:
-        "Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI",
-      channelDetail: "",
-      marginTop: " ",
-      thumbnail: "https://i.ytimg.com/vi/QU9c0053UAU/hq720.jpg",
-      source: "https://www.youtube.com/watch?v=ar3n9UAbalo",
-      user: {
-        full_name: "abc",
-        user_id: 1,
-        channelTitle: "JavaScript Mastery",
-      },
-      viewCount: 100,
-      likeCount: 100,
-    };
+    // let item = {
+    //   video_id: 1,
+    //   video_name:
+    //     "Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI",
+    //   channelDetail: "",
+    //   marginTop: " ",
+    //   thumbnail: "https://i.ytimg.com/vi/QU9c0053UAU/hq720.jpg",
+    //   source: "https://www.youtube.com/watch?v=ar3n9UAbalo",
+    //   user: {
+    //     full_name: "John Cena",
+    //     user_id: 1,
+    //     channelTitle: "JavaScript Mastery",
+    //   },
+    //   viewCount: 100,
+    //   likeCount: 100,
+    // };
 
-    setVideoDetail(item);
+    if (params.id) {
+      getVideoId(params.id)
+        .then((item) => {
+          setVideoDetail(item);
+        })
+        .catch((err) => {});
+    } else {
+      getVideoAPI()
+        .then((result) => {
+          setVideos(result);
+        })
+        .catch((err) => {});
+    }
 
-    let lstItem = [
-      {
-        video_id: 1,
-        video_name:
-          "Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI",
-        channelDetail: "",
-        marginTop: " ",
-        thumbnail: "https://i.ytimg.com/vi/QU9c0053UAU/hq720.jpg",
-        channelId: 1,
-        channelTitle: "abc",
-        channelId: 1,
-        channelTitle: "JavaScript Mastery",
-      },
-      {
-        video_id: 2,
-        video_name: "The movies Iron man 4: 0.1 Hours",
-        channelDetail: "",
-        marginTop: " ",
-        thumbnail: "https://i.ytimg.com/vi/t86sKsR4pnk/hq720.jpg",
-        channelId: 1,
-        channelTitle: "abc",
-        channelId: 1,
-        channelTitle: "JavaScript Mastery",
-      },
-    ];
-    setVideos(lstItem);
-  }, [id]);
-
+    // let lstItem = [
+    //   {
+    //     video_id: 1,
+    //     video_name:
+    //       "Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI",
+    //     channelDetail: "",
+    //     marginTop: " ",
+    //     thumbnail: "https://i.ytimg.com/vi/QU9c0053UAU/hq720.jpg",
+    //     channelId: 1,
+    //     channelTitle: "John Cena",
+    //     channelId: 1,
+    //     channelTitle: "JavaScript Mastery",
+    //   },
+    //   {
+    //     video_id: 2,
+    //     video_name: "The movies Iron man 4: 0.1 Hours",
+    //     channelDetail: "",
+    //     marginTop: " ",
+    //     thumbnail: "https://i.ytimg.com/vi/t86sKsR4pnk/hq720.jpg",
+    //     channelId: 1,
+    //     channelTitle: "John Cena",
+    //     channelId: 1,
+    //     channelTitle: "JavaScript Mastery",
+    //   },
+    // ];
+  }, [params.id]);
+  
+  // setVideos(lstItem);
   if (videoDetail) {
     const { data, dataComment } = videoDetail;
     const { video_name, description, source, views, user, video_id } =
