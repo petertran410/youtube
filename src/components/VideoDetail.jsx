@@ -5,74 +5,45 @@ import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { Videos, Loader } from "./";
-import { getVideoAPI, getVideoId } from "../utils/fetchFromAPI.js";
+import {
+  getCommentVideoId,
+  getVideoAPI,
+  getVideoId,
+} from "../utils/fetchFromAPI.js";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
+  const [comments, setComments] = useState([]);
   // const { id } = useParams();
   const params = useParams();
 
   useEffect(() => {
-    // let item = {
-    //   video_id: 1,
-    //   video_name:
-    //     "Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI",
-    //   channelDetail: "",
-    //   marginTop: " ",
-    //   thumbnail: "https://i.ytimg.com/vi/QU9c0053UAU/hq720.jpg",
-    //   source: "https://www.youtube.com/watch?v=ar3n9UAbalo",
-    //   user: {
-    //     full_name: "John Cena",
-    //     user_id: 1,
-    //     channelTitle: "JavaScript Mastery",
-    //   },
-    //   viewCount: 100,
-    //   likeCount: 100,
-    // };
+    getVideoId(params.id)
+      .then((result) => {
+        setVideoDetail(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    if (params.id) {
-      getVideoId(params.id)
-        .then((item) => {
-          setVideoDetail(item);
-        })
-        .catch((err) => {});
-    } else {
-      getVideoAPI()
-        .then((result) => {
-          setVideos(result);
-        })
-        .catch((err) => {});
-    }
+    getVideoAPI()
+      .then((result) => {
+        setVideos(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    // let lstItem = [
-    //   {
-    //     video_id: 1,
-    //     video_name:
-    //       "Build and Deploy 5 JavaScript & React API Projects in 10 Hours - Full Course | RapidAPI",
-    //     channelDetail: "",
-    //     marginTop: " ",
-    //     thumbnail: "https://i.ytimg.com/vi/QU9c0053UAU/hq720.jpg",
-    //     channelId: 1,
-    //     channelTitle: "John Cena",
-    //     channelId: 1,
-    //     channelTitle: "JavaScript Mastery",
-    //   },
-    //   {
-    //     video_id: 2,
-    //     video_name: "The movies Iron man 4: 0.1 Hours",
-    //     channelDetail: "",
-    //     marginTop: " ",
-    //     thumbnail: "https://i.ytimg.com/vi/t86sKsR4pnk/hq720.jpg",
-    //     channelId: 1,
-    //     channelTitle: "John Cena",
-    //     channelId: 1,
-    //     channelTitle: "JavaScript Mastery",
-    //   },
-    // ];
+    getCommentVideoId(params.id)
+      .then((result) => {
+        setComments(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [params.id]);
-  
-  // setVideos(lstItem);
+
   if (videoDetail) {
     const { data, dataComment } = videoDetail;
     const { video_name, description, source, views, user, video_id } =
@@ -175,38 +146,42 @@ const VideoDetail = () => {
                       </div>
                     </div>
 
-                    <div
-                      className="card-body text-white"
-                      style={{ backgroundColor: "#000" }}>
-                      <div className="d-flex flex-start ">
-                        <img
-                          className="rounded-circle shadow-1-strong me-3"
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"
-                          alt="avatar"
-                          width={60}
-                          height={60}
-                        />
+                    {comments.map((comment) => {
+                      return (
+                        <div
+                          className="card-body text-white"
+                          style={{ backgroundColor: "#000" }}>
+                          <div className="d-flex flex-start ">
+                            <img
+                              className="rounded-circle shadow-1-strong me-3"
+                              src={comment.user.avatar}
+                              alt="avatar" 
+                              width={60}
+                              height={60}
+                            />
 
-                        <p className="mb-4 pb-2">
-                          <h6 className="fw-bold text-white mb-1">John</h6>
-                          hello
-                          <div className=" d-flex justify-content-start ">
-                            <a
-                              href="#!"
-                              className="d-flex align-items-center me-3 text-white">
-                              <i className="far fa-thumbs-up me-2" />
-                              <p className="mb-0">Like</p>
-                            </a>
-                            <a
-                              href="#!"
-                              className="d-flex align-items-center me-3 text-white">
-                              <i className="far fa-comment-dots me-2" />
-                              <p className="mb-0">Reply</p>
-                            </a>
+                            <p className="mb-4 pb-2">
+                              <h6 className="fw-bold text-white mb-1">{comment.user.full_name}</h6>
+                              {comment.content}
+                              <div className=" d-flex justify-content-start ">
+                                <a
+                                  href="#!"
+                                  className="d-flex align-items-center me-3 text-white">
+                                  <i className="far fa-thumbs-up me-2" />
+                                  <p className="mb-0">Like</p>
+                                </a>
+                                <a
+                                  href="#!"
+                                  className="d-flex align-items-center me-3 text-white">
+                                  <i className="far fa-comment-dots me-2" />
+                                  <p className="mb-0">Reply</p>
+                                </a>
+                              </div>
+                            </p>
                           </div>
-                        </p>
-                      </div>
-                    </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

@@ -57,3 +57,11 @@ export const getVideoId = async (videoId) => {
 
   return data.content;
 };
+
+export const getCommentVideoId = async (videoId) => {
+  const { data } = await axios.get(
+    `${BASE_URL}/video/get-comment-video/${videoId}`
+  );
+
+  return data.content;
+};
