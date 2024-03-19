@@ -73,7 +73,7 @@ export const getSignUpAPI = async (model) => {
 };
 
 export const getLoginAPI = async (model) => {
-  const {data} = await axios.post(`${BASE_URL}/auth/login`, model)
-}
+  const { data } = await axios.post(`${BASE_URL}/auth/login`, model);
 
-
+  return data;
+};

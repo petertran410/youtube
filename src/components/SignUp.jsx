@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Box, CardMedia } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 import { Videos, ChannelCard } from ".";
 import { getSignUpAPI } from "../utils/fetchFromAPI";
@@ -50,7 +49,7 @@ const SignUp = () => {
                 getSignUpAPI({ full_name, email, pass_word })
                   .then((result) => {
                     alert(result.message);
-                    navigate("/auth/login");
+                    navigate("/login");
                   })
                   .catch((err) => {
                     alert(err.response.data.message);
