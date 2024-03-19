@@ -65,3 +65,15 @@ export const getCommentVideoId = async (videoId) => {
 
   return data.content;
 };
+
+export const getSignUpAPI = async (model) => {
+  const { data } = await axios.post(`${BASE_URL}/auth/signup`, model);
+
+  return data;
+};
+
+export const getLoginAPI = async (model) => {
+  const {data} = await axios.post(`${BASE_URL}/auth/login`, model)
+}
+
+
