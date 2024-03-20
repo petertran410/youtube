@@ -54,7 +54,7 @@ const Login = () => {
               Login
             </button>
           </div>
-          <FacebookLogin appId="1088597931155576" callback={() => {}} />
+          <FacebookLogin appId="351573283893078" callback={() => {}} />
         </form>
       </div>
     </div>
