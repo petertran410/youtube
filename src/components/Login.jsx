@@ -5,6 +5,8 @@ import { Box, CardMedia } from "@mui/material";
 import { Videos, ChannelCard } from ".";
 import { getLoginAPI } from "../utils/fetchFromAPI";
 
+import FacebookLogin from "react-facebook-login";
+
 const Login = () => {
   const [channelDetail, setChannelDetail] = useState();
   const [videos, setVideos] = useState(null);
@@ -52,6 +54,7 @@ const Login = () => {
               Login
             </button>
           </div>
+          <FacebookLogin appId="1088597931155576" callback={() => {}} />
         </form>
       </div>
     </div>
