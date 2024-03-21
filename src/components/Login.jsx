@@ -54,7 +54,12 @@ const Login = () => {
               Login
             </button>
           </div>
-          <FacebookLogin appId="351573283893078" callback={() => {}} />
+          <FacebookLogin
+            appId="351573283893078"
+            callback={(response) => {
+              console.log(response);
+            }}
+          />
         </form>
       </div>
     </div>
