@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Box, CardMedia } from "@mui/material";
 
 import { Videos, ChannelCard } from ".";
-import { getLoginAPI } from "../utils/fetchFromAPI";
+import { getLoginAPI, loginFacebookAPI } from "../utils/fetchFromAPI";
 
 import FacebookLogin from "react-facebook-login";
 
@@ -58,6 +58,19 @@ const Login = () => {
             appId="351573283893078"
             callback={(response) => {
               console.log(response);
+
+              let model = {
+                faceAppId: response.id,
+                full_name: response.name,
+              };
+              loginFacebookAPI(model)
+                .then((result) => {
+                  alert(result.message);
+                  // Lưu token
+                })
+                .catch((err) => {
+                  alert(err.response.data.message);
+                });
             }}
           />
         </form>
