@@ -9,7 +9,7 @@ const options = {
   headers: {
     "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
     "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
-    // 'token': localStorage.getItem("LOGIN_USER")
+    token: localStorage.getItem("LOGIN_USER"),
   },
 };
 
@@ -20,66 +20,91 @@ export const fetchFromAPI = async (url) => {
 };
 
 export const getVideoAPI = async () => {
-  const { data } = await axios.get(`${BASE_URL}/video/get-video`);
+  const { data } = await axios.get(`${BASE_URL}/video/get-video`, options);
 
   return data.content;
 };
 
 export const getVideoTypeAPI = async () => {
-  const { data } = await axios.get(`${BASE_URL}/video/get-video-type`);
+  const { data } = await axios.get(`${BASE_URL}/video/get-video-type`, options);
 
   return data.content;
 };
 
 export const getVideoByTypeAPI = async (typeId) => {
   const { data } = await axios.get(
-    `${BASE_URL}/video/get-video-by-type/${typeId}`
+    `${BASE_URL}/video/get-video-by-type/${typeId}`,
+    options
   );
 
   return data.content;
 };
 
 export const getVideoTypeId = async () => {
-  const { data } = await axios.get(`${BASE_URL}/videoType/get-video-type-id`);
+  const { data } = await axios.get(
+    `${BASE_URL}/videoType/get-video-type-id`,
+    options
+  );
 
   return data.content;
 };
 
 export const getVideoPageAPI = async (page = 1) => {
   // trả về data, totalPage
-  const { data } = await axios.get(`${BASE_URL}/video/get-video-page/${page}`);
+  const { data } = await axios.get(
+    `${BASE_URL}/video/get-video-page/${page}`,
+    options
+  );
 
   return data.content;
 };
 
 export const getVideoId = async (videoId) => {
-  const { data } = await axios.get(`${BASE_URL}/video/get-video-id/${videoId}`);
+  const { data } = await axios.get(
+    `${BASE_URL}/video/get-video-id/${videoId}`,
+    options
+  );
 
   return data.content;
 };
 
 export const getCommentVideoId = async (videoId) => {
   const { data } = await axios.get(
-    `${BASE_URL}/video/get-comment-video/${videoId}`
+    `${BASE_URL}/video/get-comment-video/${videoId}`,
+    options
   );
 
   return data.content;
 };
 
 export const getSignUpAPI = async (model) => {
-  const { data } = await axios.post(`${BASE_URL}/auth/signup`, model);
+  const { data } = await axios.post(`${BASE_URL}/auth/signup`, model, options);
 
   return data;
 };
 
 export const getLoginAPI = async (model) => {
-  const { data } = await axios.post(`${BASE_URL}/auth/login`, model);
+  const { data } = await axios.post(`${BASE_URL}/auth/login`, model, options);
 
   return data;
 };
 
 export const loginFacebookAPI = async (model) => {
-  const { data } = await axios.post(`${BASE_URL}/auth/login-facebook`, model);
+  const { data } = await axios.post(
+    `${BASE_URL}/auth/login-facebook`,
+    model,
+    options
+  );
+
+  return data;
+};
+
+export const commentAPI = async (model) => {
+  const { data } = await axios.post(
+    `${BASE_URL}/video/comment-video`,
+    model,
+    options
+  );
 
   return data;
 };

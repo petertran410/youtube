@@ -6,6 +6,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { Videos, Loader } from "./";
 import {
+  commentAPI,
   getCommentVideoId,
   getVideoAPI,
   getVideoId,
@@ -118,6 +119,7 @@ const VideoDetail = () => {
                           height={40}
                         />
                         <div className="form-outline w-100">
+                          {/* text area */}
                           <textarea
                             className="form-control text-white"
                             id="textAreaExample"
@@ -133,9 +135,32 @@ const VideoDetail = () => {
                         </div>
                       </div>
                       <div className="float-end mt-2 pt-1">
+                        {/* nút comment */}
                         <button
                           type="button"
-                          className="btn btn-outline-light btn-sm me-3">
+                          className="btn btn-outline-light btn-sm me-3"
+                          onClick={() => {
+                            let model = {
+                              video_id: params.id,
+                              content:
+                                document.querySelector("#textAreaExample")
+                                  .value,
+                            };
+                            commentAPI(model)
+                              .then((result) => {
+                                // gọi lại API lấy danh sách bình luận
+                                getCommentVideoId(params.id)
+                                  .then((result) => {
+                                    setComments(result);
+                                  })
+                                  .catch((err) => {
+                                    console.log(err);
+                                  });
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                          }}>
                           Post comment
                         </button>
                         <button
@@ -155,13 +180,15 @@ const VideoDetail = () => {
                             <img
                               className="rounded-circle shadow-1-strong me-3"
                               src={comment.user.avatar}
-                              alt="avatar" 
+                              alt="avatar"
                               width={60}
                               height={60}
                             />
 
                             <p className="mb-4 pb-2">
-                              <h6 className="fw-bold text-white mb-1">{comment.user.full_name}</h6>
+                              <h6 className="fw-bold text-white mb-1">
+                                {comment.user.full_name}
+                              </h6>
                               {comment.content}
                               <div className=" d-flex justify-content-start ">
                                 <a
