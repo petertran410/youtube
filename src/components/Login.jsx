@@ -45,7 +45,9 @@ const Login = () => {
                   .then((result) => {
                     alert(result.message);
                     // Lưu token
-                    navigate("/video");
+                    // localStorage.setItem("LOGIN_USER", result.content);
+                    console.log(result);
+                    // window.location.reload();
                   })
                   .catch((err) => {
                     alert(err.response.data.message);
