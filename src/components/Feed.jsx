@@ -26,13 +26,14 @@ const Feed = () => {
         .catch((err) => {
           console.log(err);
         });
-    } else {
-      getVideoAPI()
-        .then((result) => {
-          setVideos(result);
-        })
-        .catch((err) => {});
-    }
+    } 
+    // else {
+    //   getVideoAPI()
+    //     .then((result) => {
+    //       setVideos(result);
+    //     })
+    //     .catch((err) => {});
+    // }
   }, [params.id]);
 
   useEffect(() => {
