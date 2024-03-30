@@ -112,6 +112,25 @@ export const commentAPI = async (model) => {
   return data;
 };
 
+export const getInfoUser = async (userId) => {
+  const { data } = await axios.get(
+    `${BASE_URL}/user/get-info-user/${userId}`,
+    options
+  );
+
+  return data.content;
+};
+
+export const updateInfoUser = async (userId, model) => {
+  const { data } = await axios.put(
+    `${BASE_URL}/user/update-info/${userId}`,
+    model,
+    options
+  );
+
+  return data.content;
+};
+
 // interceptors => middleware khi nhận response từ BE về
 axios.interceptors.response.use(
   (response) => response,
