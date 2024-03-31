@@ -6,7 +6,7 @@ import { Videos, ChannelCard } from ".";
 
 import ReactPlayer from "react-player";
 import { DOMAIN_BE_IMG } from "../utils/constants";
-import { getInfoUser } from "../utils/fetchFromAPI";
+import { getInfoUser, updateInfoUser } from "../utils/fetchFromAPI";
 
 const InfoUser = () => {
   const [channelDetail, setChannelDetail] = useState();
@@ -17,11 +17,10 @@ const InfoUser = () => {
   );
 
   const [info, setInfo] = useState(null);
-
   const { id } = useParams();
 
   useEffect(() => {
-    getInfoUser(id)
+    getInfoUser()
       .then((result) => {
         setInfo(result);
       })
@@ -101,7 +100,7 @@ const InfoUser = () => {
                     Password
                   </label>
                   <input
-                    type="password"
+                    // type="password"
                     className="form-control"
                     id="inputPassword"
                     defaultValue={info && info.pass_word}
@@ -109,7 +108,18 @@ const InfoUser = () => {
                 </div>
 
                 <div className="col-12">
-                  <button type="button" className="btn btn-primary">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      const fullName =
+                        document.querySelector("#inputFullName").value;
+                      const passWord =
+                        document.querySelector("#inputPassword").value;
+                      updateInfoUser({ fullName, passWord }).then((result) => {
+                        alert(result);
+                      });
+                    }}>
                     Update
                   </button>
                 </div>

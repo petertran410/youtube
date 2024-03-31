@@ -112,23 +112,20 @@ export const commentAPI = async (model) => {
   return data;
 };
 
-export const getInfoUser = async (userId) => {
-  const { data } = await axios.get(
-    `${BASE_URL}/user/get-info-user/${userId}`,
-    options
-  );
+export const getInfoUser = async () => {
+  const { data } = await axios.get(`${BASE_URL}/user/get-info-user`, options);
 
   return data.content;
 };
 
-export const updateInfoUser = async (userId, model) => {
+export const updateInfoUser = async (model) => {
   const { data } = await axios.put(
-    `${BASE_URL}/user/update-info/${userId}`,
+    `${BASE_URL}/user/update-info`,
     model,
     options
   );
 
-  return data.content;
+  return data.message;
 };
 
 // interceptors => middleware khi nhận response từ BE về
