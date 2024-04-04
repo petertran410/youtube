@@ -19,7 +19,7 @@ export const fetchFromAPI = async (url) => {
   return data;
 };
 
-// Khoá token => 401: token expired => API reset token => localStorage: token => reload()
+// khóa token => 401: token expired => API reset token => localstore: token => reload()
 export const getVideoAPI = async () => {
   const { data } = await axios.get(`${BASE_URL}/video/get-video`, options);
 
@@ -28,7 +28,6 @@ export const getVideoAPI = async () => {
 
 export const getVideoTypeAPI = async () => {
   const { data } = await axios.get(`${BASE_URL}/video/get-video-type`, options);
-
   return data.content;
 };
 
@@ -37,31 +36,10 @@ export const getVideoByTypeAPI = async (typeId) => {
     `${BASE_URL}/video/get-video-by-type/${typeId}`,
     options
   );
-
   return data.content;
 };
 
-export const getVideoTypeId = async () => {
-  const { data } = await axios.get(
-    `${BASE_URL}/videoType/get-video-type-id`,
-    options
-  );
-
-  return data.content;
-};
-
-// Khoá token => 401: token expired => API reset token => localStorage: token => reload()
-export const getVideoPageAPI = async (page = 1) => {
-  // trả về data, totalPage
-  const { data } = await axios.get(
-    `${BASE_URL}/video/get-video-page/${page}`,
-    options
-  );
-
-  return data.content;
-};
-
-// Khoá token => 401: token expired => API reset token => localStorage: token => reload()
+// khóa token => 401
 export const getVideoId = async (videoId) => {
   const { data } = await axios.get(
     `${BASE_URL}/video/get-video-id/${videoId}`,
@@ -80,13 +58,13 @@ export const getCommentVideoId = async (videoId) => {
   return data.content;
 };
 
-export const getSignUpAPI = async (model) => {
+export const signUpAPI = async (model) => {
   const { data } = await axios.post(`${BASE_URL}/auth/signup`, model, options);
 
   return data;
 };
 
-export const getLoginAPI = async (model) => {
+export const loginAPI = async (model) => {
   const { data } = await axios.post(`${BASE_URL}/auth/login`, model, options);
 
   return data;
@@ -112,13 +90,23 @@ export const commentAPI = async (model) => {
   return data;
 };
 
-export const getInfoUser = async () => {
-  const { data } = await axios.get(`${BASE_URL}/user/get-info-user`, options);
+// khóa token => 401: token expired => API reset token => localstore: token => reload()
+export const getVideoPageAPI = async (page = 1) => {
+  const { data } = await axios.get(
+    `${BASE_URL}/video/get-video-page/${page}`,
+    options
+  );
+
+  return data.content; // { data, totalPage}
+};
+
+export const getInfo = async () => {
+  const { data } = await axios.get(`${BASE_URL}/user/get-info`, options);
 
   return data.content;
 };
 
-export const updateInfoUser = async (model) => {
+export const updateInfo = async (model) => {
   const { data } = await axios.put(
     `${BASE_URL}/user/update-info`,
     model,
@@ -128,23 +116,25 @@ export const updateInfoUser = async (model) => {
   return data.message;
 };
 
-// interceptors => middleware khi nhận response từ BE về
+// interceptor => middleware khi nhận response từ BE về
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
     console.log(error.response.data);
-    if (error.response.data === "TokenExpiredError") {
+    if (error.response.data == "TokenExpiredError") {
       // call API refresh
       axios
         .post(`${BASE_URL}/auth/token-ref`, "", options)
         .then((result) => {
+          console.log(result.data.content);
           localStorage.setItem("LOGIN_USER", result.data.content);
+
           window.location.reload();
         })
-        .catch((err) => {
-          // logout => API logout
+        .catch((error) => {
+          // logout => API Logout
 
-          // xoá local user
+          // xóa localstore
           localStorage.removeItem("LOGIN_USER");
         });
     }

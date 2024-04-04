@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, CardMedia } from "@mui/material";
 
 import { Videos, ChannelCard } from ".";
 
 import ReactPlayer from "react-player";
 import { DOMAIN_BE_IMG } from "../utils/constants";
-import { getInfoUser, updateInfoUser } from "../utils/fetchFromAPI";
+import { getInfo, updateInfo } from "../utils/fetchFromAPI";
 
 const InfoUser = () => {
   const [channelDetail, setChannelDetail] = useState();
@@ -16,17 +16,21 @@ const InfoUser = () => {
     "http://dergipark.org.tr/assets/app/images/buddy_sample.png"
   );
 
-  const [info, setInfo] = useState(null);
   const { id } = useParams();
+  const [info, setInfo] = useState(null);
+
+  let userInfo = localStorage.getItem("LOGIN_USER");
+  let navigate = useNavigate();
 
   useEffect(() => {
-    getInfoUser()
-      .then((result) => {
-        setInfo(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!userInfo) {
+      navigate("/login");
+      return;
+    }
+
+    getInfo().then((result) => {
+      setInfo(result);
+    });
   }, [id]);
 
   return (
@@ -100,7 +104,6 @@ const InfoUser = () => {
                     Password
                   </label>
                   <input
-                    // type="password"
                     className="form-control"
                     id="inputPassword"
                     defaultValue={info && info.pass_word}
@@ -112,11 +115,11 @@ const InfoUser = () => {
                     type="button"
                     className="btn btn-primary"
                     onClick={() => {
-                      const fullName =
+                      const full_name =
                         document.querySelector("#inputFullName").value;
-                      const passWord =
+                      const pass_word =
                         document.querySelector("#inputPassword").value;
-                      updateInfoUser({ fullName, passWord }).then((result) => {
+                      updateInfo({ full_name, pass_word }).then((result) => {
                         alert(result);
                       });
                     }}>

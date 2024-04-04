@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Box, CardMedia } from "@mui/material";
-
 import { Videos, ChannelCard } from ".";
-import { getSignUpAPI } from "../utils/fetchFromAPI";
+import { signUpAPI } from "../utils/fetchFromAPI";
 
 const SignUp = () => {
   const [channelDetail, setChannelDetail] = useState();
   const [videos, setVideos] = useState(null);
-  const navigate = useNavigate();
 
-  // const { id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {}, []);
 
@@ -46,13 +44,12 @@ const SignUp = () => {
                 let email = document.querySelector("#email").value;
                 let pass_word = document.querySelector("#pass").value;
 
-                getSignUpAPI({ full_name, email, pass_word })
+                signUpAPI({ full_name, email, pass_word })
                   .then((result) => {
                     alert(result.message);
-                    navigate("/login");
                   })
-                  .catch((err) => {
-                    alert(err.response.data.message);
+                  .catch((error) => {
+                    alert(error.response.data.message);
                   });
               }}>
               Sign Up
