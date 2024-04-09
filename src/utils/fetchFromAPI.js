@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const BASE_URL = "http://localhost:8080";
+export const BASE_URL_IMG = "http://localhost:8080/public/imgs/";
 
 const options = {
   params: {
@@ -15,6 +16,8 @@ const options = {
 
 export const fetchFromAPI = async (url) => {
   const { data } = await axios.get(`${BASE_URL}/${url}`, options);
+
+  let formData = new FormData();
 
   return data;
 };

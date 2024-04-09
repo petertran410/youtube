@@ -12,6 +12,8 @@ import {
   DOMAIN_BE_IMG,
 } from "../utils/constants";
 
+import { BASE_URL_IMG } from "../utils/fetchFromAPI";
+
 const VideoCard = ({
   video: { video_id, video_name, thumbnail, channelId, channelTitle },
 }) => {
@@ -24,7 +26,7 @@ const VideoCard = ({
       }}>
       <Link to={video_id ? `/video/${video_id}` : `/video/cV2gBU6hKfY`}>
         <CardMedia
-          image={thumbnail}
+          image={BASE_URL_IMG + thumbnail}
           alt={video_name}
           sx={{ width: { xs: "100%", sm: "358px" }, height: 180 }}
         />
