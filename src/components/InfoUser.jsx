@@ -73,7 +73,16 @@ const InfoUser = () => {
             <div className="col-2">
               <img className="rounded-circle" src={avatar} width="100%" />
 
-              <input className="form-control" type="file" id="formFile" />
+              <input
+                className="form-control"
+                type="file"
+                id="formFile"
+                onChange={(event) => {
+                  let file = event.target.files[0];
+                  let formData = new FormData();
+                  formData.append("avatar", file);
+                }}
+              />
             </div>
             <div className=" col-10">
               <form className="row g-3 text-white">
