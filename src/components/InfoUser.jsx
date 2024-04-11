@@ -6,7 +6,7 @@ import { Videos, ChannelCard } from ".";
 
 import ReactPlayer from "react-player";
 import { DOMAIN_BE_IMG } from "../utils/constants";
-import { getInfo, updateInfo } from "../utils/fetchFromAPI";
+import { BASE_URL_IMG, getInfo, updateInfo, uploadAvatar } from "../utils/fetchFromAPI";
 
 const InfoUser = () => {
   const [channelDetail, setChannelDetail] = useState();
@@ -79,8 +79,14 @@ const InfoUser = () => {
                 id="formFile"
                 onChange={(event) => {
                   let file = event.target.files[0];
+                  let fileC2 = document.querySelector("#formFile").files[0];
+                  console.log(fileC2);
                   let formData = new FormData();
                   formData.append("avatar", file);
+
+                  uploadAvatar(formData).then((result) => {
+                    setAvatar(BASE_URL_IMG + result)
+                  });
                 }}
               />
             </div>
@@ -113,6 +119,7 @@ const InfoUser = () => {
                     Password
                   </label>
                   <input
+                    type="password"
                     className="form-control"
                     id="inputPassword"
                     defaultValue={info && info.pass_word}
