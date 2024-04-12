@@ -129,6 +129,15 @@ export const uploadAvatar = async (formData) => {
   return data;
 };
 
+export const uploadCloudDinary = async (formData) => {
+  const { data } = await axios.post(
+    "CLOUDINARY_URL=cloudinary://571172816863493:JYKPebp3LBXAq4zWH4N6QdHHOHw@ddddqyqsm/upload",
+    formData
+  );
+
+  return data;
+};
+
 // interceptor => middleware khi nhận response từ BE về
 axios.interceptors.response.use(
   (response) => response,

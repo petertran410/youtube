@@ -11,6 +11,7 @@ import {
   getInfo,
   updateInfo,
   uploadAvatar,
+  uploadCloudDinary,
 } from "../utils/fetchFromAPI";
 
 const InfoUser = () => {
@@ -85,9 +86,6 @@ const InfoUser = () => {
                 onChange={(event) => {
                   let file = event.target.files[0];
                   let fileC2 = document.querySelector("#formFile").files[0];
-                  console.log(fileC2);
-                  let formData = new FormData();
-                  formData.append("avatar", file);
 
                   // let formDataJson = {
                   //   avatar: file,
@@ -95,13 +93,22 @@ const InfoUser = () => {
                   //   email: "",
                   // };
 
-                  formData.append("avatar", file);
-                  formData.append("hoTen", "spider man");
-                  formData.append("email", "spider@gmail.com");
+                  // formData.append("avatar", file);
+                  // formData.append("hoTen", "spider man");
+                  // formData.append("email", "spider@gmail.com");
 
-                  uploadAvatar(formData).then((result) => {
-                    setAvatar(BASE_URL_IMG + result);
+                  let formData = new FormData();
+                  formData.append("file", file);
+
+                  formData.append("upload_preset", ek2ypupx);
+
+                  uploadCloudDinary(formData).then((result) => {
+                    console.log(result);
                   });
+
+                  // uploadAvatar(formData).then((result) => {
+                  //   setAvatar(BASE_URL_IMG + result);
+                  // });
                 }}
               />
             </div>
