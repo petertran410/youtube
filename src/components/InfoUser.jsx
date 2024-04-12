@@ -6,7 +6,12 @@ import { Videos, ChannelCard } from ".";
 
 import ReactPlayer from "react-player";
 import { DOMAIN_BE_IMG } from "../utils/constants";
-import { BASE_URL_IMG, getInfo, updateInfo, uploadAvatar } from "../utils/fetchFromAPI";
+import {
+  BASE_URL_IMG,
+  getInfo,
+  updateInfo,
+  uploadAvatar,
+} from "../utils/fetchFromAPI";
 
 const InfoUser = () => {
   const [channelDetail, setChannelDetail] = useState();
@@ -84,8 +89,14 @@ const InfoUser = () => {
                   let formData = new FormData();
                   formData.append("avatar", file);
 
-                  uploadAvatar(formData).then((result) => {
-                    setAvatar(BASE_URL_IMG + result)
+                  let formDataJson = {
+                    avatar: file,
+                    hoTen: "",
+                    email: "",
+                  };
+
+                  uploadAvatar(formDataJson).then((result) => {
+                    setAvatar(BASE_URL_IMG + result);
                   });
                 }}
               />

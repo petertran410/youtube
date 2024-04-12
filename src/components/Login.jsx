@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, CardMedia } from "@mui/material";
 
 import { Videos, ChannelCard } from ".";
-import { loginAPI, loginFacebookAPI } from "../utils/fetchFromAPI";
+import { BASE_URL, loginAPI, loginFacebookAPI } from "../utils/fetchFromAPI";
 import ReactFacebookLogin from "react-facebook-login";
 
 const Login = () => {
   const [channelDetail, setChannelDetail] = useState();
   const [videos, setVideos] = useState(null);
+
+  const navigate = useNavigate();
 
   const { id } = useParams();
   useEffect(() => {}, []);
@@ -27,7 +29,7 @@ const Login = () => {
             <label htmlFor="inputEmail4" className="form-label">
               Password
             </label>
-            <input className="form-control" id="pass" />
+            <input className="form-control" id="pass" type="password" />
           </div>
           <div className="col-12">
             <button
@@ -44,7 +46,8 @@ const Login = () => {
                     console.log(result);
                     localStorage.setItem("LOGIN_USER", result.content);
 
-                    window.location.reload();
+                    // window.location.href = `${BASE_URL}`;
+                    navigate("/video/get-video")
                   })
                   .catch((error) => {
                     alert(error.response.data.message);
