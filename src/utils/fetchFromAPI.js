@@ -11,7 +11,7 @@ const options = {
     "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
     "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
     token: localStorage.getItem("LOGIN_USER"),
-    "content-type": "multipart/form-data",
+    // "content-type": "multipart/form-data",
   },
 };
 

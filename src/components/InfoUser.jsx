@@ -89,13 +89,17 @@ const InfoUser = () => {
                   let formData = new FormData();
                   formData.append("avatar", file);
 
-                  let formDataJson = {
-                    avatar: file,
-                    hoTen: "",
-                    email: "",
-                  };
+                  // let formDataJson = {
+                  //   avatar: file,
+                  //   hoTen: "",
+                  //   email: "",
+                  // };
 
-                  uploadAvatar(formDataJson).then((result) => {
+                  formData.append("avatar", file);
+                  formData.append("hoTen", "spider man");
+                  formData.append("email", "spider@gmail.com");
+
+                  uploadAvatar(formData).then((result) => {
                     setAvatar(BASE_URL_IMG + result);
                   });
                 }}
