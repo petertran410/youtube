@@ -131,7 +131,7 @@ export const uploadAvatar = async (formData) => {
 
 export const uploadCloudDinary = async (formData) => {
   const { data } = await axios.post(
-    "CLOUDINARY_URL=cloudinary://571172816863493:JYKPebp3LBXAq4zWH4N6QdHHOHw@ddddqyqsm/upload",
+    "https://api.cloudinary.com/v1_1/ddddqyqsm/upload",
     formData
   );
 

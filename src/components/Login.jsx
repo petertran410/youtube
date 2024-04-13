@@ -46,8 +46,8 @@ const Login = () => {
                     console.log(result);
                     localStorage.setItem("LOGIN_USER", result.content);
 
-                    // window.location.href = `${BASE_URL}`;
-                    navigate("/video/get-video")
+                    window.location.reload();
+                    // navigate("/video/get-video")
                   })
                   .catch((error) => {
                     alert(error.response.data.message);

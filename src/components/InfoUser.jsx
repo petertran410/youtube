@@ -99,12 +99,15 @@ const InfoUser = () => {
 
                   let formData = new FormData();
                   formData.append("file", file);
+                  formData.append("upload_preset", "ek2ypupx");
 
-                  formData.append("upload_preset", ek2ypupx);
-
-                  uploadCloudDinary(formData).then((result) => {
-                    console.log(result);
-                  });
+                  uploadCloudDinary(formData)
+                    .then((result) => {
+                      console.log(result);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
 
                   // uploadAvatar(formData).then((result) => {
                   //   setAvatar(BASE_URL_IMG + result);
