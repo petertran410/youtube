@@ -23,6 +23,14 @@ export const fetchFromAPI = async (url) => {
   return data;
 };
 
+export const getSearchVideo = async (videoName) => {
+  const { data } = await axios.get(
+    `${BASE_URL}/video/search-video/${videoName}`,
+    options
+  );
+  return data.content;
+};
+
 // khóa token => 401: token expired => API reset token => localstore: token => reload()
 export const getVideoAPI = async () => {
   const { data } = await axios.get(`${BASE_URL}/video/get-video`, options);
