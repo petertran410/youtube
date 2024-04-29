@@ -13,6 +13,7 @@ import InfoUser from "./components/InfoUser";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Footer from "./components/Footer";
+import DemoSocket from "./components/DemoSocket";
 
 const App = () => (
   <BrowserRouter>
@@ -21,6 +22,7 @@ const App = () => (
       <Routes>
         <Route exact path="/" element={<Feed />} />
         <Route exact path="/:page" element={<Feed />} />
+        <Route exact path="/socket" element={<DemoSocket />} />
 
         <Route exact path="/videoType/:id" element={<Feed />} />
 
