@@ -11,6 +11,7 @@ import {
   getVideoAPI,
   getVideoId,
 } from "../utils/fetchFromAPI.js";
+import { io } from "socket.io-client";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
@@ -44,6 +45,11 @@ const VideoDetail = () => {
         console.log(err);
       });
   }, [params.id]);
+
+  let socket = io("ws://localhost:8080");
+  socket.on("new-comment-video", (data) => {
+    setComments(data);
+  });
 
   if (videoDetail) {
     const { data, dataComment } = videoDetail;
