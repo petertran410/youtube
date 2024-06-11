@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:8080";
-export const BASE_URL_IMG = "http://localhost:8080/public/imgs/";
+export const BASE_URL = "http://146.190.87.244:8080";
+export const BASE_URL_IMG = "http://146.190.87.244:8080/public/imgs/";
 
 const options = {
   params: {
